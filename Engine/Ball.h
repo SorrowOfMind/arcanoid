@@ -13,13 +13,14 @@ private:
 	Vec2 vel;
 
 private:
-	void ReboundX();
-	void ReboundY();
+	
 
 public:
 	Ball(const Vec2& pos, const Vec2& vel);
 	void Draw(Graphics& gfx) const;
 	void Move(float dt);
+	void ReboundX();
+	void ReboundY();
 	bool handleBallWallCollision(const Rect& walls);
 	Rect GetRect() const;
 };
