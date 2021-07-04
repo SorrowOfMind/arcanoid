@@ -10,14 +10,16 @@ Rect::Rect(float left, float top, float right, float bottom)
 }
 
 Rect::Rect(const Vec2& top_left, const Vec2& bottom_right)
+	:
+	Rect(top_left.x, top_left.y, bottom_right.x, bottom_right.y)
 {
-	Rect(top_left.x, bottom_right.x, top_left.y, bottom_right.y);
 }
 
 Rect::Rect(const Vec2& top_left, float width, float height)
+	:
+	Rect(top_left, top_left + Vec2(width, height))
+
 {
-	//Vec2 bottom_right = Vec2(top_left.x + width, top_left.y + height);
-	Rect(top_left, top_left + Vec2(width, height));
 }
 
 bool Rect::IsCollidingWithOtherRect(const Rect& other_rect) const
@@ -31,4 +33,10 @@ bool Rect::IsCollidingWithOtherRect(const Rect& other_rect) const
 			&& bottom >= other_top 
 			&& right >= other_left 
 			&& top <= other_bottom);
+}
+
+Rect Rect::FromCenter(const Vec2& center, float halfWidth, float halfHeight)
+{
+	const Vec2 half(halfWidth, halfHeight);
+	return Rect(center - half, center + half);
 }

@@ -358,6 +358,18 @@ void Graphics::DrawCircle( int x,int y,int radius,Color c )
 	}
 }
 
+void Graphics::DrawBorder(const Rect& rect, Color c)
+{
+	for (unsigned int i = rect.left; i <= rect.right; i++)
+	{
+		for (unsigned int j = rect.top; j <= rect.bottom; j++)
+		{
+			if ( i == rect.left || i == rect.right || j == rect.top || j == rect.bottom)
+				PutPixel(i, j, c);
+		}
+	}
+}
+
 
 //////////////////////////////////////////////////
 //           Graphics Exception
