@@ -28,6 +28,8 @@
 #include "Ball.h"
 #include "Sound.h"
 #include "Brick.h"
+#include "Paddle.h"
+#include "Colors.h"
 
 class Game
 {
@@ -43,6 +45,11 @@ private:
 	/*  User Functions              */
 	/********************************/
 private:
+	static constexpr int brickRow = 4;
+	static constexpr int brickCol = 8;
+	static constexpr int brickTotal = 32;
+	static constexpr float brickW = 50.0f;
+	static constexpr float brickH = 20.0f;
 	MainWindow& wnd;
 	Graphics gfx;
 	/********************************/
@@ -50,8 +57,10 @@ private:
 	/********************************/
 	FrameTimer ft;
 	Ball ball;
-	Brick brick;
+	Paddle paddle;
 	Rect walls;
-	Sound soundWall;
+	Sound soundPad;
 	Sound soundBrick;
+	Brick bricks[brickTotal];
+	Brick br;
 };

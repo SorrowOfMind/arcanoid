@@ -23,4 +23,5 @@ public:
 	void ReboundY();
 	bool handleBallWallCollision(const Rect& walls);
 	Rect GetRect() const;
+	Vec2 GetVel() const;
 };
