@@ -46,8 +46,8 @@ private:
 	/********************************/
 private:
 	static constexpr int brickRow = 4;
-	static constexpr int brickCol = 8;
-	static constexpr int brickTotal = 32;
+	static constexpr int brickCol = 15;
+	static constexpr int brickTotal = brickRow * brickCol;
 	static constexpr float brickW = 50.0f;
 	static constexpr float brickH = 20.0f;
 	MainWindow& wnd;
@@ -62,5 +62,4 @@ private:
 	Sound soundPad;
 	Sound soundBrick;
 	Brick bricks[brickTotal];
-	Brick br;
 };

@@ -11,6 +11,7 @@ private:
 	Rect brick;
 	Color color;
 	bool isDestroyed = false;
+	static constexpr float padding = 1.0f;
 public:
 	Brick() = default;
 	Brick(const Rect& rect, Color c);

@@ -10,7 +10,9 @@ Brick::Brick(const Rect& rect, Color c)
 void Brick::Draw(Graphics& gfx)
 {
 	if (!isDestroyed)
-		gfx.DrawRect(brick, color);
+	{
+		gfx.DrawRect(brick.GetExpanded(-padding), color);
+	}
 }
 
 bool Brick::handleBrickBallCollision(Ball& ball)
@@ -26,3 +28,4 @@ bool Brick::handleBrickBallCollision(Ball& ball)
 
 	return hasCollided;
 }
+

@@ -40,3 +40,8 @@ Rect Rect::FromCenter(const Vec2& center, float halfWidth, float halfHeight)
 	const Vec2 half(halfWidth, halfHeight);
 	return Rect(center - half, center + half);
 }
+
+Rect Rect::GetExpanded(float offset)
+{
+	return Rect(left - offset, top - offset, right + offset, bottom + offset);
+}
