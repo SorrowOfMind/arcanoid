@@ -68,3 +68,9 @@ Vec2 Ball::GetVel() const
 {
 	return vel;
 }
+
+Vec2 Ball::GetPositon() const
+{
+
+	return pos;
+}

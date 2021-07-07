@@ -24,4 +24,5 @@ public:
 	bool handleBallWallCollision(const Rect& walls);
 	Rect GetRect() const;
 	Vec2 GetVel() const;
+	Vec2 GetPositon() const; //get the center of the ball - helper for the side collision
 };

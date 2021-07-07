@@ -16,4 +16,5 @@ public:
 	bool IsCollidingWithOtherRect(const Rect& other_rect) const;
 	static Rect FromCenter(const Vec2& center, float halfWidth, float halfHeight);
 	Rect GetExpanded(float offset);
+	Vec2 GetCenter() const;
 };

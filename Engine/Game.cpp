@@ -65,13 +65,36 @@ void Game::UpdateModel()
 
 	paddle.handlePaddleWallsCollision(walls);
 
-	for (Brick& b : bricks)
+	bool colHappened = false;
+	float curColDist;
+	int curColIdx;
+
+	for (int i = 0; i < brickTotal; i++)
 	{
-		if (b.handleBrickBallCollision(ball))
+		if (bricks[i].DetectBrickBallCollision(ball))
 		{
-			soundBrick.Play();
-			break;
+			const float newColDist = (ball.GetPositon() - bricks[i].GetBrickCenter()).GetLengthSq(); //we just compare lengths - no matter the square or not
+			if (colHappened)
+			{
+				if (newColDist < curColDist)
+				{
+					curColDist = newColDist;
+					curColIdx = i;
+				}
+			}
+			else
+			{
+				curColDist = newColDist;
+				curColIdx = i;
+				colHappened = true;
+			}
+
 		}
+	}
+	if (colHappened)
+	{
+		bricks[curColIdx].handleBrickBallCollision(ball);
+		soundBrick.Play();
 	}
 
 

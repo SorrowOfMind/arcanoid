@@ -16,5 +16,9 @@ public:
 	Brick() = default;
 	Brick(const Rect& rect, Color c);
 	void Draw(Graphics& gfx);
-	bool handleBrickBallCollision(Ball& ball);
+	//take ball collision in 2 separete calls
+	//first checks for collision, seconds do the collision
+	bool DetectBrickBallCollision(const Ball& ball) const;
+	void handleBrickBallCollision(Ball& ball);
+	Vec2 GetBrickCenter() const;
 };

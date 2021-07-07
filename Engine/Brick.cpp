@@ -1,4 +1,5 @@
 #include "Brick.h"
+#include <assert.h>
 
 Brick::Brick(const Rect& rect, Color c)
 	:
@@ -15,17 +16,29 @@ void Brick::Draw(Graphics& gfx)
 	}
 }
 
-bool Brick::handleBrickBallCollision(Ball& ball)
+void Brick::handleBrickBallCollision(Ball& ball)
 {
-	const Rect ballRect = ball.GetRect();
-	bool hasCollided = false;
-	if (brick.IsCollidingWithOtherRect(ballRect) && !isDestroyed)
-	{
-		isDestroyed = true;
+	//determine what case of collision we have
+	//assumes the detectCollision is done - put some assert here to check
+	//in release mode this assertion will get stripped from the code
+	assert(	DetectBrickBallCollision(ball));
+	
+	const Vec2 ballCenter = ball.GetPositon();
+	if (ballCenter.x >= brick.left && ballCenter.x <= brick.right)
 		ball.ReboundY();
-		hasCollided = true;
-	}
+	else
+		ball.ReboundX();
 
-	return hasCollided;
+	isDestroyed = true;
+}
+
+Vec2 Brick::GetBrickCenter() const
+{
+	return brick.GetCenter();
+}
+
+bool Brick::DetectBrickBallCollision(const Ball& ball) const
+{
+	return brick.IsCollidingWithOtherRect(ball.GetRect()) && !isDestroyed;
 }
 
