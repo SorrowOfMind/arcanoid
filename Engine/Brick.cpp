@@ -24,7 +24,9 @@ void Brick::handleBrickBallCollision(Ball& ball)
 	assert(	DetectBrickBallCollision(ball));
 	
 	const Vec2 ballCenter = ball.GetPositon();
-	if (ballCenter.x >= brick.left && ballCenter.x <= brick.right)
+	if (std::signbit(ball.GetVel().x) == std::signbit((ballCenter - brick.GetCenter()).x))
+		ball.ReboundY();
+	else if (ballCenter.x >= brick.left && ballCenter.x <= brick.right)
 		ball.ReboundY();
 	else
 		ball.ReboundX();
