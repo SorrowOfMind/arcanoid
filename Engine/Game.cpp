@@ -25,8 +25,8 @@ Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd),
-	ball(Vec2(300.0f, 300.0f), Vec2(-150.0f, -170.0f)),
-	paddle(Vec2(380.0f, 480.0f), 140.0f, 55.0f, 12.0f, Colors::White),
+	ball(Vec2(300.0f, 300.0f), Vec2(-170.0f, -190.0f)),
+	paddle(Vec2(380.0f, 480.0f), 170.0f, 55.0f, 12.0f, Colors::White),
 	walls(10.0f, 10.0f, (float)gfx.ScreenWidth - 10.0f, (float)gfx.ScreenHeight - 10.0f),
 	soundPad(L"Sounds\\arkpad.wav"),
 	soundBrick(L"Sounds\\arkbrick.wav")
@@ -51,14 +51,23 @@ Game::Game(MainWindow& wnd)
 void Game::Go()
 {
 	gfx.BeginFrame();
-	UpdateModel();
+	//slice 1 framw into more steps - helpful with more precise collisions
+	//instead of one elapsed time of 16ms we are consumin 2.5ms at a time and updateing until theres no time left
+	float elapsedTime = ft.Mark();
+	while (elapsedTime > 0.0f) //while there is elapsedTime remaining
+	{
+		const float dt = std::min(0.0025f, elapsedTime); //sets dt to no more than  2.5ms
+		UpdateModel(dt);
+		elapsedTime -= dt;
+	}
 	ComposeFrame();
 	gfx.EndFrame();
 }
 
-void Game::UpdateModel()
+void Game::UpdateModel(float dt)
 {
-	float dt = ft.Mark();
+	//move it to Game::Go
+	//float dt = ft.Mark();
 
 	if (paddle.handlePaddleBallCollision(ball))
 		soundPad.Play();
@@ -93,13 +102,17 @@ void Game::UpdateModel()
 	}
 	if (colHappened)
 	{
+		paddle.ResetCooldown();
 		bricks[curColIdx].handleBrickBallCollision(ball);
 		soundBrick.Play();
 	}
 
 
 	if (ball.handleBallWallCollision(walls))
+	{
+		paddle.ResetCooldown();
 		soundPad.Play();
+	}
 
 	paddle.Move(wnd.kbd, dt);
 	ball.Move(dt);

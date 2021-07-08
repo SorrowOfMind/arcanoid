@@ -19,12 +19,24 @@ void Paddle::handlePaddleWallsCollision(const Rect& walls)
 		pos.x -= paddleRect.right - walls.right;
 }
 
-bool Paddle::handlePaddleBallCollision(Ball& ball) const
+bool Paddle::handlePaddleBallCollision(Ball& ball)
 {
-	if (GetRect().IsCollidingWithOtherRect(ball.GetRect()) && ball.GetVel().y > 0)
+	if (!isCooldown)
 	{
-		ball.ReboundY();
-		return true;
+		const Rect paddle = GetRect();
+		if (paddle.IsCollidingWithOtherRect(ball.GetRect()))
+		{
+			const Vec2 ballCenter = ball.GetPositon();
+			if (std::signbit(ball.GetVel().x) == std::signbit((ballCenter - pos).x))
+				ball.ReboundY();
+			else if (ballCenter.x >= paddle.left && ballCenter.x <= paddle.right)
+				ball.ReboundY();
+			else
+				ball.ReboundX();
+
+			isCooldown = true;
+			return true;
+		}
 	}
 	return false;
 }
@@ -49,4 +61,9 @@ void Paddle::Move(Keyboard& kbd, float dt)
 Rect Paddle::GetRect() const
 {
 	return Rect::FromCenter(pos, halfWidth, halfHeight);
+}
+
+void Paddle::ResetCooldown()
+{
+	isCooldown = false;
 }
