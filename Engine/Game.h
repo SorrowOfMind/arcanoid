@@ -47,10 +47,17 @@ private:
 	/********************************/
 private:
 	static constexpr int brickRow = 4;
-	static constexpr int brickCol = 15;
+	static constexpr int brickCol = 12;
 	static constexpr int brickTotal = brickRow * brickCol;
-	static constexpr float brickW = 50.0f;
-	static constexpr float brickH = 20.0f;
+	static constexpr float brickW = 40.0f;
+	static constexpr float brickH = 22.0f;
+	static constexpr float topSpace = brickH * 1.6f;
+	static constexpr float wallThickness = 12.0f;
+	static constexpr float fieldWidth = float(brickCol) * brickW;
+	static constexpr float fieldHeight = float(Graphics::ScreenHeight) - wallThickness * 2.0f;
+	static constexpr Color brickColors[4] = { {230,0,0},{ 0,230,0 },{ 0,0,230 },{ 0,230,230 } };
+	static constexpr Color wallColor = { 20,60,200 };
+	static constexpr float readyWaitTime = 4.3f;
 	bool isGameOver = false;
 	MainWindow& wnd;
 	Graphics gfx;

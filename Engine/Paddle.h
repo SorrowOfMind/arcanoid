@@ -15,10 +15,10 @@ private:
 	float halfWidth;
 	float halfHeight;
 	Color c;
-	static constexpr float wingWidth = 20.0f;
-	const Color wingColor = Colors::Red;
-	const Color color = Colors::White;
-	static constexpr float speed = 300.0f;
+	const Color wingColor = {210, 255, 210};
+	const Color color = {200, 220, 200};
+	static constexpr float wingWidth = 6.0f;
+	static constexpr float speed = 360.0f;
 	bool isCooldown = false;
 	//control the paddle reboud behavior here
 	static constexpr float maxExitRatio = 2.6f; //exit rate at the very edge of the paddle (x component is 2.6 times bigger than the y component)

@@ -27,14 +27,12 @@ Game::Game(MainWindow& wnd)
 	gfx(wnd),
 	ball(Vec2(300.0f, 300.0f), Vec2(-1.0f, -1.0f)),
 	paddle(Vec2(380.0f, 480.0f), 170.0f, 55.0f, 12.0f, Colors::White),
-	walls(Graphics::GetScreenRect().GetExpanded(10.0f), 10.0f, Colors::Blue),
+	walls(Rect::FromCenter(Graphics::GetScreenRect().GetCenter(), fieldWidth / 2.0f, fieldHeight / 2.0f), wallThickness, wallColor),
 	soundPad(L"Sounds\\arkpad.wav"),
 	soundBrick(L"Sounds\\arkbrick.wav"),
 	soundGameOver(L"Sounds\\fart1.wav")
 {
-	const Color brickColors[4] = { Colors::Red, Colors::Green, Colors::Magenta, Colors::Yellow };
-
-	const Vec2 topleft(25.0f, 60.0f);
+	const Vec2 topleft(walls.GetInnerBounds().left, walls.GetInnerBounds().top + topSpace);
 
 	int brickCounter = 0;
 	for (int i = 0; i < brickRow; i++)
