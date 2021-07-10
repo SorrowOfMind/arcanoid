@@ -50,6 +50,7 @@ private:
 	static constexpr int brickTotal = brickRow * brickCol;
 	static constexpr float brickW = 50.0f;
 	static constexpr float brickH = 20.0f;
+	bool isGameOver = false;
 	MainWindow& wnd;
 	Graphics gfx;
 	/********************************/
@@ -62,4 +63,5 @@ private:
 	Sound soundPad;
 	Sound soundBrick;
 	Brick bricks[brickTotal];
+	Sound soundGameOver;
 };

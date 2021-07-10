@@ -27,36 +27,36 @@ void Ball::ReboundY()
 	vel.y = -vel.y;
 }
 
-bool Ball::handleBallWallCollision(const Rect& walls)
+int Ball::handleBallWallCollision(const Rect& walls)
 {
-	bool hasCollided = false;
+	int collisionResult = 0;;
 	Rect ballRect = GetRect();
 	if (ballRect.left <= walls.left)
 	{
 		pos.x = walls.left + radius; //adjust the position
 		ReboundX();	//turn velocity
-		hasCollided = true;
+		collisionResult = 1;
 	}
 	else if (ballRect.right >= walls.right)
 	{
 		pos.x -= ballRect.right - walls.right;
 		ReboundX();
-		hasCollided = true;
+		collisionResult = 1;
 	}
 	else if (ballRect.top <= walls.top)
 	{
 		pos.y += walls.top - ballRect.top;
 		ReboundY();
-		hasCollided = true;
+		collisionResult = 1;
 	}
 	else if (ballRect.bottom >= walls.bottom)
 	{
-		pos.y -= (ballRect.bottom - walls.bottom);
+	/*	pos.y -= (ballRect.bottom - walls.bottom);
 		ReboundY();
-		hasCollided = true;
+		hasCollided = true;*/
+		collisionResult = 2;
 	}
-
-	return hasCollided;
+	return collisionResult;
 }
 
 Rect Ball::GetRect() const

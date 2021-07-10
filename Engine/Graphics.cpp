@@ -360,13 +360,33 @@ void Graphics::DrawCircle( int x,int y,int radius,Color c )
 
 void Graphics::DrawBorder(const Rect& rect, Color c)
 {
-	for (unsigned int i = rect.left; i <= rect.right; i++)
+	/*for (unsigned int i = rect.left; i <= rect.right; i++)
 	{
 		for (unsigned int j = rect.top; j <= rect.bottom; j++)
 		{
 			if ( i == rect.left || i == rect.right || j == rect.top || j == rect.bottom)
 				PutPixel(i, j, c);
 		}
+	}*/
+	DrawLineX(rect.left, rect.top, rect.right, c);
+	DrawLineY(rect.right, rect.top, rect.bottom, c);
+	DrawLineY(rect.left, rect.top, rect.bottom, c);
+	DrawLineX(rect.left, rect.bottom, rect.right, c);
+}
+
+void Graphics::DrawLineX(int x0, int y, int x1, Color c)
+{
+	for (int i = x0; i <= x1; i++)
+	{
+		PutPixel(i, y, c);
+	}
+}
+
+void Graphics::DrawLineY(int x, int y0, int y1, Color c)
+{
+	for (int j = y0; j <= y1; j++)
+	{
+		PutPixel(x, j, c);
 	}
 }
 
