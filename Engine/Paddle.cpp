@@ -27,10 +27,26 @@ bool Paddle::handlePaddleBallCollision(Ball& ball)
 		if (paddle.IsCollidingWithOtherRect(ball.GetRect()))
 		{
 			const Vec2 ballCenter = ball.GetPositon();
-			if (std::signbit(ball.GetVel().x) == std::signbit((ballCenter - pos).x))
-				ball.ReboundY();
-			else if (ballCenter.x >= paddle.left && ballCenter.x <= paddle.right)
-				ball.ReboundY();
+			if (std::signbit(ball.GetVel().x) == std::signbit((ballCenter - pos).x) || ballCenter.x >= paddle.left && ballCenter.x <= paddle.right)
+			{
+				Vec2 dir;
+				const float xDifference = ballCenter.x - pos.x; //to the right +, to the left -
+				const float fixedXComponent = fixedZoneHalfWidth * exitFactor;
+
+				if (std::abs(xDifference) < fixedZoneHalfWidth)
+				{
+					if (xDifference < 0.0f)
+						dir = Vec2(-fixedZoneExitX, -1.0f);
+					else
+						dir = Vec2(fixedZoneExitX, -1.0f);
+				}
+				else
+				{
+					//calculate the vector for the direction
+					const Vec2 dir(xDifference * exitFactor, -1.0f);
+					ball.SetDirection(dir);
+				}
+			}
 			else
 				ball.ReboundX();
 

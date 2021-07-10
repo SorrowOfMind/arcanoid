@@ -25,7 +25,7 @@ Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd),
-	ball(Vec2(300.0f, 300.0f), Vec2(-170.0f, -190.0f)),
+	ball(Vec2(300.0f, 300.0f), Vec2(-1.0f, -1.0f)),
 	paddle(Vec2(380.0f, 480.0f), 170.0f, 55.0f, 12.0f, Colors::White),
 	walls(10.0f, 10.0f, (float)gfx.ScreenWidth - 10.0f, (float)gfx.ScreenHeight - 10.0f),
 	soundPad(L"Sounds\\arkpad.wav"),
@@ -110,13 +110,13 @@ void Game::UpdateModel(float dt)
 			soundBrick.Play();
 		}
 
-
-		if (ball.handleBallWallCollision(walls) == 1)
+		const int ballColRes = ball.handleBallWallCollision(walls);
+		if (ballColRes == 1)
 		{
 			paddle.ResetCooldown();
 			soundPad.Play();
 		}
-		else if (ball.handleBallWallCollision(walls) == 2)
+		else if (ballColRes == 2)
 		{
 			soundGameOver.Play();
 			isGameOver = true;

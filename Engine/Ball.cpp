@@ -1,10 +1,10 @@
 #include "Ball.h"
 
-Ball::Ball(const Vec2& pos, const Vec2& vel)
+Ball::Ball(const Vec2& pos, const Vec2& dir)
 	:
-	pos(pos),
-	vel(vel)
+	pos(pos)
 {
+	SetDirection(dir);
 }
 
 void Ball::Draw(Graphics& gfx) const
@@ -73,4 +73,9 @@ Vec2 Ball::GetPositon() const
 {
 
 	return pos;
+}
+
+void Ball::SetDirection(const Vec2& dir)
+{
+	vel = dir.GetNormalized() * speed;
 }
