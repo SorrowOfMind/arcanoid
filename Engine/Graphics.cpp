@@ -426,6 +426,11 @@ void Graphics::DrawIsoRightTriBR(int x, int y, int size, Color c)
 	}
 }
 
+Rect Graphics::GetScreenRect()
+{
+	return { 0.0f, float(ScreenWidth), 0.0f, float(ScreenHeight) };
+}
+
 void Graphics::DrawIsoRightTriUR(int x, int y, int size, Color c)
 {
 	for (int i = y; i < y + size; i++)

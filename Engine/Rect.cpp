@@ -50,3 +50,8 @@ Vec2 Rect::GetCenter() const
 {
 	return Vec2((left + right) / 2.0f, (top + bottom) / 2.0f);
 }
+
+bool Rect::IsContainedBy(const Rect& other) const
+{
+	return left >= other.left && right <= other.right, top >= other.top && bottom <= other.bottom;
+}

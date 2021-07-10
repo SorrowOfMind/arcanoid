@@ -17,4 +17,5 @@ public:
 	static Rect FromCenter(const Vec2& center, float halfWidth, float halfHeight);
 	Rect GetExpanded(float offset);
 	Vec2 GetCenter() const;
+	bool IsContainedBy(const Rect& other) const;
 };
