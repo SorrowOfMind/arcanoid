@@ -63,6 +63,10 @@ public:
 	void DrawBorder(const Rect& rect, Color c);
 	void DrawLineX(int x0, int y, int x1, Color c);
 	void DrawLineY(int x, int y0, int y1, Color c);
+	void DrawIsoRightTriUL(int x, int y, int size, Color c); //UL - upper left - when the triangle is
+	void DrawIsoRightTriUR(int x, int y, int size, Color c);
+	void DrawIsoRightTriBL(int x, int y, int size, Color c);
+	void DrawIsoRightTriBR(int x, int y, int size, Color c);
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;

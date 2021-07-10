@@ -390,6 +390,54 @@ void Graphics::DrawLineY(int x, int y0, int y1, Color c)
 	}
 }
 
+void Graphics::DrawIsoRightTriUL(int x, int y, int size, Color c)
+{
+	for (int i = y; i < y + size; i++)
+	{
+		const int cur_line = i - y;
+		for (int j = x; j < x + size - cur_line; j++)
+		{
+			PutPixel(i, j, c);
+		}
+	}
+}
+
+void Graphics::DrawIsoRightTriBL(int x, int y, int size, Color c)
+{
+	for (int i = y; i < y + size; i++)
+	{
+		const int cur_line = i - y;
+		for (int j = x; j < x + cur_line; j++)
+		{
+			PutPixel(i, j, c);
+		}
+	}
+}
+
+void Graphics::DrawIsoRightTriBR(int x, int y, int size, Color c)
+{
+	for (int i = y; i < y + size; i++)
+	{
+		const int cur_line = i - y;
+		for (int j = x + size - cur_line; j < x + size; j++)
+		{
+			PutPixel(i, j, c);
+		}
+	}
+}
+
+void Graphics::DrawIsoRightTriUR(int x, int y, int size, Color c)
+{
+	for (int i = y; i < y + size; i++)
+	{
+		const int cur_line = i - y;
+		for (int j = x + cur_line; j < x + size; j++)
+		{
+			PutPixel(i, j, c);
+		}
+	}
+}
+
 
 //////////////////////////////////////////////////
 //           Graphics Exception
