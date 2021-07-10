@@ -27,7 +27,7 @@ Game::Game(MainWindow& wnd)
 	gfx(wnd),
 	ball(Vec2(300.0f, 300.0f), Vec2(-1.0f, -1.0f)),
 	paddle(Vec2(380.0f, 480.0f), 170.0f, 55.0f, 12.0f, Colors::White),
-	walls(10.0f, 10.0f, (float)gfx.ScreenWidth - 10.0f, (float)gfx.ScreenHeight - 10.0f),
+	walls(Graphics::GetScreenRect().GetExpanded(10.0f), 10.0f, Colors::Blue),
 	soundPad(L"Sounds\\arkpad.wav"),
 	soundBrick(L"Sounds\\arkbrick.wav"),
 	soundGameOver(L"Sounds\\fart1.wav")
@@ -75,7 +75,7 @@ void Game::UpdateModel(float dt)
 		if (paddle.handlePaddleBallCollision(ball))
 			soundPad.Play();
 
-		paddle.handlePaddleWallsCollision(walls);
+		paddle.handlePaddleWallsCollision(walls.GetInnerBounds());
 
 		bool colHappened = false;
 		float curColDist;
@@ -110,7 +110,7 @@ void Game::UpdateModel(float dt)
 			soundBrick.Play();
 		}
 
-		const int ballColRes = ball.handleBallWallCollision(walls);
+		const int ballColRes = ball.handleBallWallCollision(walls.GetInnerBounds());
 		if (ballColRes == 1)
 		{
 			paddle.ResetCooldown();
@@ -132,7 +132,7 @@ void Game::ComposeFrame()
 {
 	if (!isGameOver)
 	{
-		gfx.DrawBorder(walls, Colors::LightGray);
+		//gfx.DrawBorder(walls.GetInnerBounds(), Colors::LightGray);
 		ball.Draw(gfx);
 		paddle.Draw(gfx);
 
@@ -144,6 +144,5 @@ void Game::ComposeFrame()
 	else
 		SpriteCodex::DrawGameOver(350, 250, gfx);
 	
-
-
-}
+	walls.Draw(gfx);
+}	

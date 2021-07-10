@@ -30,6 +30,7 @@
 #include "Brick.h"
 #include "Paddle.h"
 #include "Colors.h"
+#include "Walls.h"
 
 class Game
 {
@@ -59,7 +60,7 @@ private:
 	FrameTimer ft;
 	Ball ball;
 	Paddle paddle;
-	Rect walls;
+	Walls walls;
 	Sound soundPad;
 	Sound soundBrick;
 	Brick bricks[brickTotal];
